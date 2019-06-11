@@ -20,10 +20,10 @@ class WishRequest:
         self.data = {}
 
     def _set_data(self):
-        self.data = Wish.base_wish_request.copy()
+        self.data = WishRequest.base_wish_request.copy()
         self.data['mainJourney']['origin'] = self.origin_station.get_json()
         self.data['mainJourney']['destination'] = self.destination_station.get_json()
         self.data['passengers'] = [self.passenger.get_json()]
 
     def __repr__(self):
-        return f'<WishRequest [{self.date_departure.strftime('%m/%d/%Y')}] {self.origin_station.get_code()} -> {self.destination_station.get_code()}>'
+        return f'<WishRequest [{str(self.date_departure)}] {self.origin_station.code} -> {self.destination_station.code}>'
