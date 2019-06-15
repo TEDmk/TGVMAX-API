@@ -24,53 +24,53 @@ class Station:
 
     @property
     def code(self) -> str:
-        "return station code"
+        "Return station code"
         return self._code
 
     @property
     def label(self) -> str:
-        "return station label"
+        "Return station label"
         if 'label' not in self._data:
             return None
         return str(self._data['label'])
 
     @property
     def latitude(self) -> float:
-        "return station latitude coordinate"
+        "Return station latitude coordinate"
         if 'latitude' not in self._data:
             return None
         return float(self._data['latitude'])
 
     @property
     def longitude(self) -> float:
-        "return station longitude coordinate"
+        "Return station longitude coordinate"
         if 'longitude' not in self._data:
             return None
         return float(self._data['longitude'])
 
     @property
     def ouibus(self) -> str:
-        "return the station ouibus code"
+        "Return the station ouibus code"
         if 'ouiBusCode' not in self._data:
             return None
         return str(self._data['ouiBusCode'])
 
     @property
     def tess(self) -> str:
-        "return the station tess code"
+        "Return the station tess code"
         if 'tessCode' not in self._data:
             return None
         return str(self._data['tessCode'])
 
     @property
     def resarail(self) -> str:
-        "return the station resarail code"
+        "Return the station resarail code"
         if 'rrCode' not in self._data:
             return None
         return str(self._data['rrCode'])
 
     def json(self) -> dict:
-        "return station json information present in most of requests"
+        "Return station json information present in most of SNCF Api requests"
         data = {}
         data['address'] = {'country': 'FR'}
         data['code'] = self.code
