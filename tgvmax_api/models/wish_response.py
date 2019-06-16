@@ -1,22 +1,41 @@
 import json
+from typing import TypeVar
 
+WishRequest = TypeVar('WishRequest')
 
 class WishResponse:
     "Object returned by the wish_request.send method. This contains all info about wish response"
 
 
-    def __init__(self, raw='', status=''):
+    def __init__(self, raw: str='', status: str='', request: WishRequest=None):
         """
         Initiate WishReponse
 
         Arguments:
         raw -- Raw data of the response
         status -- status of the WishResponse. Use this when raw='' due to an error
+        request -- request that received the response
         """
+        if type(raw) != str:
+            ValueError(f'Raw ("{raw}") is not a string')
+        if type(raw) != str:
+            ValueError(f'Status ("{raw}") is not a string')
+        if type(request) != WishRequest:
+            ValueError(f'Request ("{raw}") is not a WishRequest')
+        self._request = request
         self._raw = raw
         self._json = json.loads(raw)
         self._status = status
-        
+
+    @property
+    def request(self):
+        "Return the request"
+        return self._request
+
+    def json(self):
+        "return the json of the response"
+        return self._json
+
     @property
     def id(self) -> str:
         "Return the wish ID"

@@ -17,6 +17,8 @@ class Station:
         Arguments:
         code -- The station code (i.e. FRPAR for Intramuros Paris)
         """
+        if type(code) != str:
+            raise ValueError(f'Station code ("{code}") is not a string')
         if code not in Station.stations_list:
             raise ValueError('Station code doesn\'t exist')
         self._code = code

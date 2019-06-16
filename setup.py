@@ -7,7 +7,8 @@ requires = [
     ]
 
 tests_require = [
-    'pytest'
+    'pytest',
+    'pycov'
     ]
 
 setup(name='TGVMAX-API',
@@ -20,4 +21,7 @@ setup(name='TGVMAX-API',
       include_package_data=True,
       zip_safe=False,
       install_requires=requires
+      extra_requires={
+        'test': tests_require
+      }
       )

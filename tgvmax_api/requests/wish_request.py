@@ -1,7 +1,7 @@
 from tgvmax_api.models.wish_response import WishResponse
 from tgvmax_api.models.station import Station
 from tgvmax_api.models.schedule import Schedule
-from tgvmax_api.models.passenger import Passenger
+from tgvmax_api.models.tgvmax_passenger import TGVMaxPassenger
 import requests
 import json
 
@@ -38,7 +38,7 @@ class WishRequest:
     url = 'https://www.oui.sncf/wishes-api/wishes'
     "url of the request"
 
-    def __init__(self, origin_station: Station, destination_station: Station, schedule: Schedule, passenger: Passenger):
+    def __init__(self, origin_station: Station, destination_station: Station, schedule: Schedule, passenger: TGVMaxPassenger):
         """
         Initiate WishRequest
 
@@ -62,9 +62,9 @@ class WishRequest:
         "send the request and return the result"
         try:
             response = requests.post(WishRequest.url, headers=WishRequest.headers, data=json.dumps(self.data))
-            return WishResponse(raw=response.text)
+            return WishResponse(raw=response.text, request=self)
         except requests.exceptions.ConnectionError:
-            return WishResponse(raw='', status='CONNECTION_ERROR')
+            return WishResponse(raw='', status='CONNECTION_ERROR', request=self)
 
     def __repr__(self):
         return f'<WishRequest [{str(self.schedule.date)}] {self.origin_station.code} -> {self.destination_station.code}>'

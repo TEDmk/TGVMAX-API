@@ -3,13 +3,15 @@ import datetime
 class Schedule:
     "Schedule"
 
-    def __init__(self, date:datetime.datetime):
+    def __init__(self, date: datetime.datetime):
         """
         Initiate Schedule.
 
         Arguments:
         date -- Date of the schedule
         """
+        if type(date) != datetime.datetime:
+            ValueError(f'"{date}" is not a datetime')
         self._date = date
 
     @property
