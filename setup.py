@@ -20,7 +20,7 @@ setup(name='TGVMAX-API',
       },
       include_package_data=True,
       zip_safe=False,
-      install_requires=requires
+      install_requires=requires,
       extra_requires={
         'test': tests_require
       }

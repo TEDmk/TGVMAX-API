@@ -1,4 +1,5 @@
 from tgvmax_api.models.wish_response import WishResponse
+from tgvmax_api.models.train_response import TrainResponse
 import datetime
 import json
 import requests
@@ -24,6 +25,12 @@ class TrainRequest:
         return headers
 
     def __init__(self, wish_response: WishResponse):
+        """
+        Initiate Train request
+
+        Arguments:
+        wish_response -- Wish Response that TrainRequest is based on
+        """
         if type(wish_response) != WishResponse:
             ValueError(f'WishRequest ("{wish_response}") is not valid')
         self._wish_response = wish_response
@@ -46,13 +53,13 @@ class TrainRequest:
         }}
         for key, value in self._wish_response.json().items():
             if key in ['id', 'warnings']:
-                self.data[key] = value
+                self.data['wish'][key] = value
         self.data['wish']['created'] = datetime.datetime.now().isoformat()
 
-    def send(self):
+    def send(self) -> TrainResponse:
         "send the request and return the result"
         response = requests.post(TrainRequest.url, headers=TrainRequest._headers(self._wish_response.id), data=json.dumps(self.data))
-        return response.text
+        return TrainResponse(response.text)
 
     def __repr__(self):
         return f'<WishRequest [{str(self._wish_resquest.schedule.date)}] {self._wish_resquest.origin_station.code} -> {self._wish_resquest.destination_station.code}>'
