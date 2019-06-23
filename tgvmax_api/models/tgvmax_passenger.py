@@ -42,6 +42,8 @@ class TGVMaxPassenger:
         data['lastname'] = ''
         data['promoCode'] = ''
         data['typology'] = self.age_category
+        data['age'] = self.age
+        print(data)
         return data
 
     @property

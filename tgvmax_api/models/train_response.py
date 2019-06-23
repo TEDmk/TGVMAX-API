@@ -1,5 +1,8 @@
 import json
 from typing import TypeVar
+from tgvmax_api.models.travel import Travel
+from tgvmax_api.models.generic import from_dict
+from tgvmax_api.models.fare import Fare
 
 TrainRequest = TypeVar('TrainRequest')
 
@@ -31,6 +34,20 @@ class TrainResponse:
     def request(self):
         "Return the request"
         return self._request
+
+    @property
+    def travels(self):
+        travel_list = []
+        for travel in from_dict(self._json, ['travelProposals']):
+            travel_list.append(Travel(travel))
+        return travel_list
+
+    @property
+    def fares(self):
+        fare_list = []
+        for fare in from_dict(self._json, ['fares']):
+            fare_list.append(Fare(fare))
+        return fare_list
 
     def json(self):
         "return the json of the response"

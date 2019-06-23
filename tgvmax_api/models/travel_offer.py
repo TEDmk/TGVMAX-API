@@ -1,5 +1,5 @@
 from typing import TypeVar
-
+from tgvmax_api.models.generic import from_dict
 
 Travel = TypeVar('Travel')
 
@@ -11,15 +11,11 @@ class TravelOffer:
 
     @property
     def id(self) -> str:
-        if 'id' not in self._data:
-            raise ValueError('No id key in travel offer data')
-        return self._data['id']
+        return from_dict(self._data, 'id')
 
     @property
     def amount(self) -> int:
-        if 'amount' not in self._data:
-            raise ValueError('No amount key in travel offer data')
-        return self._data['amount']
+        return from_dict(self._data, 'amount')
 
     @property
     def travelClass(self) -> int:
@@ -31,3 +27,11 @@ class TravelOffer:
             return 2
         else:
             raise ValueError('TravelClass is neither first or second class')
+
+    @property
+    def fare_id(self):
+        "return the fare id of the travel"
+        return from_dict(self._data, ['passengerOfferBySegment', 0, 'idFare'])
+
+    def __repr__(self):
+        return f'<TravelOffer {self.id}>'
