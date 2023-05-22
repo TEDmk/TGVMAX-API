@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 here = os.path.abspath(os.path.dirname(__file__))
 
 requires = [
-    'requests==2.22.0',
+    'requests==2.31.0',
     ]
 
 tests_require = [
